@@ -263,7 +263,7 @@
                     <div class="publication-links">
                          <!-- TODO: Update with your arXiv paper ID -->
                       <span class="link-block">
-                        <a href="https://arxiv.org/pdf/2504.13436.pdf" target="_blank"
+                        <a href="https://onlinelibrary.wiley.com/doi/10.1111/cgf.70229" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -347,11 +347,25 @@ The Hausdorff distance is a fundamental metric with widespread applications acro
           <h2 class="title is-3"><center>Our approach</center></h2>
           <center>
             <img src="static/images/overview_temp.png"/>
+            Figure 1. Overview of <b>RT-HDIST</b> algorithm
           </center>
           
           <div class="level-set has-text-justified">
             <p>
-              We compute the Hausdorff distance
+              <br/>
+&nbsp;We propose an RT-core-based method to compute the Hausdorff distance efficiently with 3 stage by transforming the problem into a ray-tracing-friendly form.
+              <br/><br/>
+
+              &nbsp;<b>Voxel-Index Space Construction:</b><br/>
+              &nbsp;&nbsp;Target points are quantized into a voxel-index space, where each voxel holds a representative point and its associated AABB. Query points are also mapped to this space. This step runs on general GPU cores.
+              <br/><br/>
+
+              &nbsp;<b>RT-Accelerated Candidate Search:</b><br/>
+              &nbsp;&nbsp;A BVH is built over the voxel AABBs, and RT-cores perform efficient candidate searches via ray tracing in the voxel-index space.
+              <br/><br/>
+
+              &nbsp;<b>Refined Distance Computation:</b><br/>
+              &nbsp;&nbsp;Candidate pairs are mapped back to the original object space, and the final Hausdorff distance is computed on GPU cores.
             </p>
           </div>
 
@@ -361,8 +375,21 @@ The Hausdorff distance is a fundamental metric with widespread applications acro
 <!-- Image carousel -->
 <section class="hero is-small">
   <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3"><center>Benchmark results</center></h2>
+
+      <div class="content has-text-centered">
+        <p><b>System environment</b></p>
+        <p>Intel Core i5-14600K • 32 GB RAM</p>
+
+        <figure class="image is-inline-block">
+          <img src="static/images/gpu_specific.png" alt="System environment" loading="lazy">
+          <!-- 필요하면 캡션 -->
+          <!-- <figcaption class="has-text-grey">GPU / Driver details</figcaption> -->
+        </figure>
+      </div>
+      
     <div class="container">
-          <h2 class="title is-3"><center>Benchmark results</center></h2>
       <div id="results-carousel" class="carousel results-carousel">
       <div class="item">
           <div class="columns is-multiline is-mobile is-centered">
@@ -415,6 +442,8 @@ The Hausdorff distance is a fundamental metric with widespread applications acro
           </div>
             <h2 class="subtitle has-text-centered">Scenario: Different Object</h2>
         </div>
+    </div>
+    <center>Figure 2. Benchmark results</center>
     </div>
 </div>
 </div>
