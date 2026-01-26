@@ -1,4 +1,4 @@
-# Install script for directory: E:/visual studio project/RTHD/libs
+# Install script for directory: D:/vscode proj/RT-HDIST/libs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,9 +34,15 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("E:/visual studio project/RTHD/build/libs/geometry/cmake_install.cmake")
-  include("E:/visual studio project/RTHD/build/libs/CUDAUtil/cmake_install.cmake")
-  include("E:/visual studio project/RTHD/build/libs/hausdorff/cmake_install.cmake")
+  include("D:/vscode proj/RT-HDIST/build/libs/geometry/cmake_install.cmake")
+  include("D:/vscode proj/RT-HDIST/build/libs/CUDAUtil/cmake_install.cmake")
+  include("D:/vscode proj/RT-HDIST/build/libs/hausdorff/cmake_install.cmake")
 
 endif()
 
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+if(CMAKE_INSTALL_LOCAL_ONLY)
+  file(WRITE "D:/vscode proj/RT-HDIST/build/libs/install_local_manifest.txt"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+endif()

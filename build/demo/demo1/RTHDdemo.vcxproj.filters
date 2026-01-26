@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="E:\visual studio project\RTHD\demo\demo1\demo.cpp">
+    <ClCompile Include="D:\vscode proj\RT-HDIST\demo\demo1\demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\visual studio project\RTHD\demo\demo1\CMakeLists.txt" />
+    <CustomBuild Include="D:\vscode proj\RT-HDIST\demo\demo1\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{A76ECB30-C141-3C63-954B-03CC70A549B5}</UniqueIdentifier>
+      <UniqueIdentifier>{77AE5AD2-083B-3183-9B11-EC57F51E0259}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{005D6798-EFEE-3C78-B4C9-607CF620D5D2}</ProjectGuid>
+    <ProjectGuid>{45C68B6B-C442-3A58-BA62-1DE7B41A49F4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -52,7 +52,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.8.props" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.3.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -60,25 +60,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\visual studio project\RTHD\output\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\vscode proj\RT-HDIST\output\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RTHDdemo.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RTHDdemo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\visual studio project\RTHD\output\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\vscode proj\RT-HDIST\output\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RTHDdemo.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RTHDdemo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\visual studio project\RTHD\output\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\vscode proj\RT-HDIST\output\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">RTHDdemo.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">RTHDdemo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\visual studio project\RTHD\output\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\vscode proj\RT-HDIST\output\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">RTHDdemo.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">RTHDdemo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
@@ -87,8 +87,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/include"</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -96,35 +96,52 @@
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;BYTE=uint8_t;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BYTE=uint8_t;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>Copying PTX files to D:/vscode proj/RT-HDIST/output/Debug</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/Debug"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/Debug"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\libs\Debug\optixBaseLib.lib;..\..\libs\geometry\Debug\geometryLib.lib;..\..\libs\CUDAUtil\Debug\cudaLib.lib;..\..\libs\hausdorff\Debug\hausdorffLib.lib;..\..\libs\Debug\optixBaseLib.lib;..\..\libs\CUDAUtil\Debug\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\libs\Debug\optixBaseLib.lib;..\..\libs\geometry\Debug\geometryLib.lib;..\..\libs\CUDAUtil\Debug\cudaLib.lib;..\..\libs\hausdorff\Debug\hausdorffLib.lib;..\..\libs\Debug\optixBaseLib.lib;..\..\libs\CUDAUtil\Debug\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;D:\vcpkg\vcpkg\installed\x64-windows\lib\*.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib;D:/vcpkg/vcpkg/installed/x64-windows/lib/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link;D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>E:/visual studio project/RTHD/build/demo/demo1/Debug/RTHDdemo.lib</ImportLibrary>
-      <ProgramDataBaseFile>E:/visual studio project/RTHD/output/Debug/RTHDdemo.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/vscode proj/RT-HDIST/build/demo/demo1/Debug/RTHDdemo.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/vscode proj/RT-HDIST/output/Debug/RTHDdemo.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -137,44 +154,62 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/include"</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>Copying PTX files to D:/vscode proj/RT-HDIST/output/Release</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/Release"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/Release"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\libs\Release\optixBaseLib.lib;..\..\libs\geometry\Release\geometryLib.lib;..\..\libs\CUDAUtil\Release\cudaLib.lib;..\..\libs\hausdorff\Release\hausdorffLib.lib;..\..\libs\Release\optixBaseLib.lib;..\..\libs\CUDAUtil\Release\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\libs\Release\optixBaseLib.lib;..\..\libs\geometry\Release\geometryLib.lib;..\..\libs\CUDAUtil\Release\cudaLib.lib;..\..\libs\hausdorff\Release\hausdorffLib.lib;..\..\libs\Release\optixBaseLib.lib;..\..\libs\CUDAUtil\Release\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;D:\vcpkg\vcpkg\installed\x64-windows\lib\*.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib;D:/vcpkg/vcpkg/installed/x64-windows/lib/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link;D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>E:/visual studio project/RTHD/build/demo/demo1/Release/RTHDdemo.lib</ImportLibrary>
-      <ProgramDataBaseFile>E:/visual studio project/RTHD/output/Release/RTHDdemo.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/vscode proj/RT-HDIST/build/demo/demo1/Release/RTHDdemo.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/vscode proj/RT-HDIST/output/Release/RTHDdemo.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -187,44 +222,62 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/include"</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>Copying PTX files to D:/vscode proj/RT-HDIST/output/MinSizeRel</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/MinSizeRel"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/MinSizeRel"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\libs\MinSizeRel\optixBaseLib.lib;..\..\libs\geometry\MinSizeRel\geometryLib.lib;..\..\libs\CUDAUtil\MinSizeRel\cudaLib.lib;..\..\libs\hausdorff\MinSizeRel\hausdorffLib.lib;..\..\libs\MinSizeRel\optixBaseLib.lib;..\..\libs\CUDAUtil\MinSizeRel\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\libs\MinSizeRel\optixBaseLib.lib;..\..\libs\geometry\MinSizeRel\geometryLib.lib;..\..\libs\CUDAUtil\MinSizeRel\cudaLib.lib;..\..\libs\hausdorff\MinSizeRel\hausdorffLib.lib;..\..\libs\MinSizeRel\optixBaseLib.lib;..\..\libs\CUDAUtil\MinSizeRel\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;D:\vcpkg\vcpkg\installed\x64-windows\lib\*.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib;D:/vcpkg/vcpkg/installed/x64-windows/lib/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link;D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>E:/visual studio project/RTHD/build/demo/demo1/MinSizeRel/RTHDdemo.lib</ImportLibrary>
-      <ProgramDataBaseFile>E:/visual studio project/RTHD/output/MinSizeRel/RTHDdemo.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/vscode proj/RT-HDIST/build/demo/demo1/MinSizeRel/RTHDdemo.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/vscode proj/RT-HDIST/output/MinSizeRel/RTHDdemo.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -237,43 +290,61 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8/include"</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\visual studio project\RTHD\demo\demo1\..\..\libs;E:\visual studio project\RTHD\demo\demo1\..\..\libs\geometry;E:\visual studio project\RTHD\demo\demo1\..\..\libs\CUDAUtil;E:\visual studio project\RTHD\demo\demo1\..\..\libs\hausdorff;E:\visual studio project\RTHD\libs;E:\visual studio project\RTHD\libs\..\..\include;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;E:\visual studio project\RTHD\libs\geometry;E:\visual studio project\RTHD\libs\geometry\..\..\libs;E:\visual studio project\RTHD\libs\geometry\..\..\include\geometry;E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff;E:\visual studio project\RTHD\libs\hausdorff\..;E:\visual studio project\RTHD\libs\hausdorff\..\CUDAUtil;E:\visual studio project\RTHD\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\geometry;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\CUDAUtil;D:\vscode proj\RT-HDIST\demo\demo1\..\..\libs\hausdorff;D:\vscode proj\RT-HDIST\libs;D:\vscode proj\RT-HDIST\libs\..\..\include;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;D:\vscode proj\RT-HDIST\libs\geometry;D:\vscode proj\RT-HDIST\libs\geometry\..\..\libs;D:\vscode proj\RT-HDIST\libs\geometry\..\..\include\geometry;D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff;D:\vscode proj\RT-HDIST\libs\hausdorff\..;D:\vscode proj\RT-HDIST\libs\hausdorff\..\CUDAUtil;D:\vscode proj\RT-HDIST\libs\hausdorff\..\..\include\hausdorff;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>Copying PTX files to D:/vscode proj/RT-HDIST/output/RelWithDebInfo</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/RelWithDebInfo"
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/RelWithDebInfo"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\..\libs\RelWithDebInfo\optixBaseLib.lib;..\..\libs\geometry\RelWithDebInfo\geometryLib.lib;..\..\libs\CUDAUtil\RelWithDebInfo\cudaLib.lib;..\..\libs\hausdorff\RelWithDebInfo\hausdorffLib.lib;..\..\libs\RelWithDebInfo\optixBaseLib.lib;..\..\libs\CUDAUtil\RelWithDebInfo\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\libs\RelWithDebInfo\optixBaseLib.lib;..\..\libs\geometry\RelWithDebInfo\geometryLib.lib;..\..\libs\CUDAUtil\RelWithDebInfo\cudaLib.lib;..\..\libs\hausdorff\RelWithDebInfo\hausdorffLib.lib;..\..\libs\RelWithDebInfo\optixBaseLib.lib;..\..\libs\CUDAUtil\RelWithDebInfo\cudaLib.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\lib\x64\cuda.lib;cudadevrt.lib;cudart_static.lib;D:\vcpkg\vcpkg\installed\x64-windows\lib\*.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3/lib/x64/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib;D:/vcpkg/vcpkg/installed/x64-windows/lib/$(Configuration);D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link;D:/vcpkg/vcpkg/installed/x64-windows/lib/manual-link/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>E:/visual studio project/RTHD/build/demo/demo1/RelWithDebInfo/RTHDdemo.lib</ImportLibrary>
-      <ProgramDataBaseFile>E:/visual studio project/RTHD/output/RelWithDebInfo/RTHDdemo.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/vscode proj/RT-HDIST/build/demo/demo1/RelWithDebInfo/RTHDdemo.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/vscode proj/RT-HDIST/output/RelWithDebInfo/RTHDdemo.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -285,11 +356,11 @@
     </CudaLink>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\visual studio project\RTHD\demo\demo1\CMakeLists.txt">
+    <CustomBuild Include="D:\vscode proj\RT-HDIST\demo\demo1\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/visual studio project/RTHD/demo/demo1/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/vscode proj/RT-HDIST/demo/demo1/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SE:/visual studio project/RTHD" "-BE:/visual studio project/RTHD/build" --check-stamp-file "E:/visual studio project/RTHD/build/demo/demo1/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/vscode proj/RT-HDIST" "-BD:/vscode proj/RT-HDIST/build" --check-stamp-file "D:/vscode proj/RT-HDIST/build/demo/demo1/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -298,11 +369,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\visual studio project\RTHD\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\vscode proj\RT-HDIST\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/visual studio project/RTHD/demo/demo1/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/vscode proj/RT-HDIST/demo/demo1/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SE:/visual studio project/RTHD" "-BE:/visual studio project/RTHD/build" --check-stamp-file "E:/visual studio project/RTHD/build/demo/demo1/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/vscode proj/RT-HDIST" "-BD:/vscode proj/RT-HDIST/build" --check-stamp-file "D:/vscode proj/RT-HDIST/build/demo/demo1/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -311,11 +382,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\visual studio project\RTHD\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\vscode proj\RT-HDIST\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/visual studio project/RTHD/demo/demo1/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/vscode proj/RT-HDIST/demo/demo1/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SE:/visual studio project/RTHD" "-BE:/visual studio project/RTHD/build" --check-stamp-file "E:/visual studio project/RTHD/build/demo/demo1/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/vscode proj/RT-HDIST" "-BD:/vscode proj/RT-HDIST/build" --check-stamp-file "D:/vscode proj/RT-HDIST/build/demo/demo1/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -324,11 +395,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\visual studio project\RTHD\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\vscode proj\RT-HDIST\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/visual studio project/RTHD/demo/demo1/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/vscode proj/RT-HDIST/demo/demo1/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SE:/visual studio project/RTHD" "-BE:/visual studio project/RTHD/build" --check-stamp-file "E:/visual studio project/RTHD/build/demo/demo1/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/vscode proj/RT-HDIST" "-BD:/vscode proj/RT-HDIST/build" --check-stamp-file "D:/vscode proj/RT-HDIST/build/demo/demo1/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -337,39 +408,46 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\visual studio project\RTHD\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\vscode proj\RT-HDIST\build\demo\demo1\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="E:\visual studio project\RTHD\demo\demo1\demo.cpp" />
+    <ClCompile Include="D:\vscode proj\RT-HDIST\demo\demo1\demo.cpp" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="E:\visual studio project\RTHD\build\ZERO_CHECK.vcxproj">
-      <Project>{1D92E043-D6C1-345D-A2DA-AEEB476F81B5}</Project>
+    <ProjectReference Include="D:\vscode proj\RT-HDIST\build\ZERO_CHECK.vcxproj">
+      <Project>{A1097858-DDDD-3411-8CD7-1814E9A592D0}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="E:\visual studio project\RTHD\build\libs\CUDAUtil\cudaLib.vcxproj">
-      <Project>{3F0C55D6-2D41-38B7-8A66-FB1ACFC65BC0}</Project>
+    <ProjectReference Include="D:\vscode proj\RT-HDIST\build\libs\CUDAUtil\cudaLib.vcxproj">
+      <Project>{413C8E95-96D8-3839-B93D-255ECF93F158}</Project>
       <Name>cudaLib</Name>
     </ProjectReference>
-    <ProjectReference Include="E:\visual studio project\RTHD\build\libs\geometry\geometryLib.vcxproj">
-      <Project>{14D9203B-EF60-38C8-8E2E-3672A8910EF5}</Project>
+    <ProjectReference Include="D:\vscode proj\RT-HDIST\build\libs\geometry\geometryLib.vcxproj">
+      <Project>{F1D90C28-CE5B-369F-8532-0E8A779F8B19}</Project>
       <Name>geometryLib</Name>
     </ProjectReference>
-    <ProjectReference Include="E:\visual studio project\RTHD\build\libs\hausdorff\hausdorffLib.vcxproj">
-      <Project>{E8B83A20-DEFC-3049-875F-FA11FB76BC86}</Project>
+    <ProjectReference Include="D:\vscode proj\RT-HDIST\build\libs\hausdorff\hausdorffLib.vcxproj">
+      <Project>{4EF518A1-A646-36D1-98B1-2A4AF7C6DACD}</Project>
       <Name>hausdorffLib</Name>
     </ProjectReference>
-    <ProjectReference Include="E:\visual studio project\RTHD\build\libs\optixBaseLib.vcxproj">
-      <Project>{6A300ADC-774F-3D7D-B8AC-CDDA70C08880}</Project>
+    <ProjectReference Include="D:\vscode proj\RT-HDIST\build\libs\optixBaseLib.vcxproj">
+      <Project>{994B9DBC-F1CF-33BC-8A58-BD32382FF74D}</Project>
       <Name>optixBaseLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\vscode proj\RT-HDIST\build\shader\shader_ptx.vcxproj">
+      <Project>{E15D0810-8B87-361A-8C33-482BD77E9BB4}</Project>
+      <Name>shader_ptx</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.8.targets" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.3.targets" />
   </ImportGroup>
 </Project>

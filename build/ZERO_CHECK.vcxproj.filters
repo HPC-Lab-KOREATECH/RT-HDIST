@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="E:\visual studio project\RTHD\build\CMakeFiles\bf3942659a1887f4e1ede6088108750b\generate.stamp.rule">
+    <CustomBuild Include="D:\vscode proj\RT-HDIST\build\CMakeFiles\68c4de0c85e020952197a8d5df62126f\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{15318EEE-EA48-3A6B-92C3-A8D87C794675}</UniqueIdentifier>
+      <UniqueIdentifier>{D6D160FD-8037-3A26-AFA7-862945734956}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
-^E:\VISUAL STUDIO PROJECT\RTHD\CMAKELISTS.TXT
+^D:\VSCODE PROJ\RT-HDIST\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SE:/visual studio project/RTHD" "-BE:/visual studio project/RTHD/build" --check-stamp-file "E:/visual studio project/RTHD/build/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/vscode proj/RT-HDIST" "-BD:/vscode proj/RT-HDIST/build" --check-stamp-file "D:/vscode proj/RT-HDIST/build/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

@@ -1,4 +1,4 @@
-# Install script for directory: E:/visual studio project/RTHD/demo
+# Install script for directory: D:/vscode proj/RT-HDIST/demo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,14 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("E:/visual studio project/RTHD/build/demo/demo1/cmake_install.cmake")
+  include("D:/vscode proj/RT-HDIST/build/demo/demo1/cmake_install.cmake")
+  include("D:/vscode proj/RT-HDIST/build/demo/demo2/cmake_install.cmake")
 
 endif()
 
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+if(CMAKE_INSTALL_LOCAL_ONLY)
+  file(WRITE "D:/vscode proj/RT-HDIST/build/demo/install_local_manifest.txt"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+endif()

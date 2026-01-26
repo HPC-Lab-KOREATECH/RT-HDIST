@@ -1,7 +1,9 @@
-E:/visual studio project/RTHD/build/CMakeFiles/ALL_BUILD.dir
-E:/visual studio project/RTHD/build/CMakeFiles/ZERO_CHECK.dir
-E:/visual studio project/RTHD/build/libs/CMakeFiles/optixBaseLib.dir
-E:/visual studio project/RTHD/build/libs/geometry/CMakeFiles/geometryLib.dir
-E:/visual studio project/RTHD/build/libs/CUDAUtil/CMakeFiles/cudaLib.dir
-E:/visual studio project/RTHD/build/libs/hausdorff/CMakeFiles/hausdorffLib.dir
-E:/visual studio project/RTHD/build/demo/demo1/CMakeFiles/RTHDdemo.dir
+D:/vscode proj/RT-HDIST/build/CMakeFiles/ALL_BUILD.dir
+D:/vscode proj/RT-HDIST/build/CMakeFiles/ZERO_CHECK.dir
+D:/vscode proj/RT-HDIST/build/libs/CMakeFiles/optixBaseLib.dir
+D:/vscode proj/RT-HDIST/build/libs/geometry/CMakeFiles/geometryLib.dir
+D:/vscode proj/RT-HDIST/build/libs/CUDAUtil/CMakeFiles/cudaLib.dir
+D:/vscode proj/RT-HDIST/build/libs/hausdorff/CMakeFiles/hausdorffLib.dir
+D:/vscode proj/RT-HDIST/build/shader/CMakeFiles/shader_ptx.dir
+D:/vscode proj/RT-HDIST/build/demo/demo1/CMakeFiles/RTHDdemo.dir
+D:/vscode proj/RT-HDIST/build/demo/demo2/CMakeFiles/DissertationTest.dir
