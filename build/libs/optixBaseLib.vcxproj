@@ -310,6 +310,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\vscode proj\RT-HDIST\include\OptiX_Base.cpp" />
+    <ClCompile Include="D:\vscode proj\RT-HDIST\libs\GlobalParam.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "3rdParty/helper_math.h"
 #include "OptiX_Base.h"
 

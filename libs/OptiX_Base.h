@@ -41,6 +41,8 @@ public:
 
     OptiXPrograms() {}
     OptiXPrograms(OptiXProgramCompileOption programOption);
+
+    void Launches(CUDABuffer paramBuffer, uint3 layout, CUstream stream = 0);
 };
 
 class OptiXGlobalParam {

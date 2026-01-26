@@ -125,7 +125,7 @@
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/Debug"
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/Debug"
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__sampling__.ptx" "D:/vscode proj/RT-HDIST/output/Debug"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -193,7 +193,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/Release"
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/Release"
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__sampling__.ptx" "D:/vscode proj/RT-HDIST/output/Release"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -261,7 +261,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/MinSizeRel"
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/MinSizeRel"
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__sampling__.ptx" "D:/vscode proj/RT-HDIST/output/MinSizeRel"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -328,7 +328,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E make_directory "D:/vscode proj/RT-HDIST/output/RelWithDebInfo"
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/output/RelWithDebInfo"
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__qcluster__.ptx" "D:/vscode proj/RT-HDIST/build/shader/$(Configuration)/__shader__hd__sampling__.ptx" "D:/vscode proj/RT-HDIST/output/RelWithDebInfo"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone

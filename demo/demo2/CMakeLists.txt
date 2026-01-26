@@ -1,7 +1,9 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-add_executable (DissertationTest "dissertation_test.cpp")
+add_executable (DissertationTest "dissertation_test.cpp"
+    "SamplingMethods/cudaFunctions.cu"
+)
 set_target_properties(DissertationTest PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../output/dissertation
 )
@@ -17,6 +19,7 @@ target_include_directories(DissertationTest PUBLIC
     ../../libs/geometry
     ../../libs/CUDAUtil
     ../../libs/hausdorff
+    SamplingMethods
 )
 
 get_property(SHADER_PTX_OUTPUTS GLOBAL PROPERTY SHADER_PTX_OUTPUTS)

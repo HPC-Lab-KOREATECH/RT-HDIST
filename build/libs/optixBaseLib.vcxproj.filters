@@ -4,6 +4,9 @@
     <ClCompile Include="D:\vscode proj\RT-HDIST\include\OptiX_Base.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\vscode proj\RT-HDIST\libs\GlobalParam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\vscode proj\RT-HDIST\libs\CMakeLists.txt" />

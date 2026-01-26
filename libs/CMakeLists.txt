@@ -1,5 +1,6 @@
 add_library(optixBaseLib
     ../include/OptiX_Base.cpp
+    GlobalParam.cpp
 )
 target_link_libraries(optixBaseLib PUBLIC
     optix_common

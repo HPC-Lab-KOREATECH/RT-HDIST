@@ -191,3 +191,15 @@ OptiXPrograms::OptiXPrograms(OptiXProgramCompileOption programOption){
         //if (sizeof_log > 1) PRINT(log);
     }
 }
+
+void OptiXPrograms::Launches(CUDABuffer paramBuffer, uint3 layout, CUstream stream){
+    OPTIX_CHECK(optixLaunch(pipeline, stream,
+        paramBuffer.d_pointer(),
+        paramBuffer.sizeInBytes,
+        &sbt,
+        layout.x,
+        layout.y,
+        layout.z
+    ));
+    cudaStreamSynchronize(stream);
+}

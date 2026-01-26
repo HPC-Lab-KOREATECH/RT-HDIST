@@ -2,6 +2,7 @@
 
 set(SHADER_SOURCES
     __shader__hd__qcluster__.cu
+    __shader__hd__sampling__.cu
 )
 
 if(NOT DEFINED CUDAToolkit_NVCC_EXECUTABLE)

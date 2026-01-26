@@ -13,18 +13,17 @@ CudaRuntime=Static
 CudaToolkitCustomDir=
 DebugInformationFormat=None
 DebugInformationFormat=None
-Defines=;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";_MBCS;;CMAKE_INTDIR="Release"
+Defines=;_WINDOWS;NDEBUG;BYTE=uint8_t;CMAKE_INTDIR="Release";_MBCS;;CMAKE_INTDIR="Release"
 Emulation=false
 EnableVirtualArchInFatbin=true
 ExtensibleWholeProgramCompilation=false
-FastCompile=Off
 FastMath=false
 GenerateLineInfo=false
 GenerateRelocatableDeviceCode=false
 GPUDebugInfo=false
 GPUDebugInfo=false
 HostDebugInfo=false
-Include=E:\visual studio project\RTHD\libs\CUDAUtil;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\libs;E:\visual studio project\RTHD\libs\CUDAUtil\..\..\include\CUDAUtil;C:\ProgramData\NVIDIA Corporation\OptiX SDK 7.4.0\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include
+Include=D:\vscode proj\RT-HDIST\libs\CUDAUtil;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\libs;D:\vscode proj\RT-HDIST\libs\CUDAUtil\..\..\include\CUDAUtil;D:\vscode proj\RT-HDIST\build\_deps\optix-src\include;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3\include
 Inputs=
 InterleaveSourceInPTX=false
 Keep=false

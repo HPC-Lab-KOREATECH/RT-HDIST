@@ -7,7 +7,6 @@
 #include "3rdParty/Logger.h"
 #include "3rdParty/IO.h"
 
-#define GLOBALPARAM_IMPLEMENTATION
 #include "GlobalParam.h"
 
 #include "PointCloud.h"
@@ -17,14 +16,6 @@
 #include "ReduceUtils.h"
 #include "AABBSupport.h"
 
-std::mt19937 random_machine;
-std::map<std::string, int> globalParams;
-
-std::string loggerPath;
-float3 globalTransform;
-float globalTransformRatio;
-
-std::vector<std::string> inputFilePaths;
 
 void buildQClusterShader();
 
