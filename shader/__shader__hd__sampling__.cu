@@ -20,6 +20,7 @@ struct Payload_t
 
 float3 getRayDir()
 {
+    int samples = optixLaunchParams.Target.vSize * optixLaunchParams.samplingRate;
     switch (optixLaunchParams.samplingMethod)
     {
     case VERTEX:

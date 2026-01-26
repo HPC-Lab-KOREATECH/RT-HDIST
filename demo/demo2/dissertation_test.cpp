@@ -22,7 +22,6 @@
 #include "rtMeshGAS.h"
 
 uint random_seed;
-std::string g_ptx_dir;
 
 void buildQClusterShader();
 void buildSamplingShdaer();
@@ -47,13 +46,7 @@ int main(int argc, char *argv[])
 {
     std::cout << "Device name : " << optixGlobalParams.deviceProps.name << std::endl;
 
-    g_ptx_dir = std::filesystem::path(argv[0]).parent_path().string();
-    if (!g_ptx_dir.empty())
-    {
-        g_ptx_dir += std::filesystem::path::preferred_separator;
-    }
-
-    //buildQClusterShader();
+    buildQClusterShader();
     buildSamplingShdaer();
 
     verifyArguments(argc, argv);
@@ -66,7 +59,6 @@ int main(int argc, char *argv[])
     SPIN::Logger log;
 
     Object_t hA = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[0]);
-    Object_t hB;
 
     HDGPUParam<HDMODE::TRIANGLE> dA;
     HDGPUParam<HDMODE::TRIANGLE> dB;
@@ -83,18 +75,20 @@ int main(int argc, char *argv[])
             globalTransform = globalTransformRatio * make_float3(aabbsize.x, 0, 0);
             boxTranslate = globalTransform;
         }
-        hB = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[0]);
+        Object_t hB = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[0]);
         for (auto &v : hB.model->meshes[0]->vertex)
         {
             v += boxTranslate;
         }
+        alloc_and_upload(*hB.model->meshes[0], dB);
     }
     else
     {
-        hB = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[1]);
+        Object_t hB = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[1]);
+        alloc_and_upload(*hB.model->meshes[0], dB);
     }
-    alloc_and_upload(*hB.model->meshes[0], dB);
 
+    std::cout << "For Test" << std::endl;
     OptiXHDistSamplingMethod testTarget[]{VERTEX, HEMISPHERE, AABB};
 
     for (const auto &mtd : testTarget)
@@ -103,6 +97,8 @@ int main(int argc, char *argv[])
         float3 cand1, cand2;
         float HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
                             dA, dB, cand1, cand2, mtd, 0.001f, timeParam);
+
+        std::cout << "HDIST : " << HD << std::endl;
     }
 
     std::cout << "Hello world!" << std::endl;
@@ -123,6 +119,8 @@ float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUPa
         targetGAS.build(); });
     timeParam["01_GAS_build"] = GASBuildTime;
 
+    std::cout << "Build Time : " << GASBuildTime << " ms" << std::endl;
+
     OptixAabb targetAABB = computeAABB_device(dB.vert, dB.vSize);
 
     CUDABuffer launchParamBuffer;
@@ -139,8 +137,9 @@ float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUPa
         hdparam.queryPoints = dA.vert;
         hdparam.querySize = dA.vSize;
 
-        if(method == HEMISPHERE){
-            //build vertex normal
+        if (method == HEMISPHERE)
+        {
+            // build vertex normal
             computeVertexNormals(dA, hdparam.queryNormals);
         }
 
@@ -158,62 +157,63 @@ float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUPa
 
         hdparam.traversable = targetGAS.gas;
 
-
         hdparam.Result.distance = (float *)distanceBuffer.d_pointer();
         hdparam.Result.pos = (float3 *)posBuffer.d_pointer();
     }
 
     launchParamBuffer.upload(&hdparam, 1);
 
-    //Compute HD
-    auto ComputeTime = SPIN::TimeCheck([&]{
+    // Compute HD
+    auto ComputeTime = SPIN::TimeCheck([&]
+                                       {
         program.Launches(launchParamBuffer, make_uint3(dA.vSize, 1, 1));
         size_t maxIDX;
         float tmp = getMaximumF(hdparam.Result.distance, dA.vSize, maxIDX);
 
         HD = tmp;
         cudaMemcpy(&cand1, dA.vert + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost);
-        cudaMemcpy(&cand2, hdparam.Result.pos + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost);
-        });
+        cudaMemcpy(&cand2, hdparam.Result.pos + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost); });
     timeParam["02_HD_Compute"] = ComputeTime;
+    std::cout << "Compute Time : " << ComputeTime << " ms" << std::endl;
 
-    if(method == HEMISPHERE){
+    if (method == HEMISPHERE)
+    {
         cudaFree(hdparam.queryNormals);
     }
 
     return HD;
 }
 
+void buildQClusterShader()
+{
+    OptiXProgramCompileOption hdShaderOption;
+    hdShaderOption.fileName = "__shader__hd__qcluster__";
+    hdShaderOption.filePath = "";
+    hdShaderOption.rayCount = 1;
+    hdShaderOption.launchParamName = "optixLaunchParams";
+    hdShaderOption.rayGenName = "__raygen__program__";
+    hdShaderOption.missProgramNames = {"__miss__radiance"};
+    hdShaderOption.hitProgramCount = 1;
+    hdShaderOption.hitProgramNames = {{"__intersection__radiance", "__anyhit__radiance", "__closesthit__radiance"}};
 
-void buildQClusterShader(){
-	OptiXProgramCompileOption hdShaderOption;
-	hdShaderOption.fileName = "__shader__hd__qcluster__";
-	hdShaderOption.filePath = "";
-	hdShaderOption.rayCount = 1;
-	hdShaderOption.launchParamName = "optixLaunchParams";
-	hdShaderOption.rayGenName = "__raygen__program__";
-	hdShaderOption.missProgramNames = { "__miss__radiance" };
-	hdShaderOption.hitProgramCount = 1;
-	hdShaderOption.hitProgramNames = { {"__intersection__radiance", "__anyhit__radiance", "__closesthit__radiance"} };
+    OptiXHDProgram *HDProgram = new OptiXHDProgram(hdShaderOption);
 
-	OptiXHDProgram* HDProgram = new OptiXHDProgram(hdShaderOption);
-
-	optixGlobalParams.programList["QCluster"] = HDProgram;
+    optixGlobalParams.programList["QCluster"] = HDProgram;
 }
 
+void buildSamplingShdaer()
+{
+    OptiXProgramCompileOption hdShaderOption;
+    hdShaderOption.fileName = "__shader__hd__sampling__";
+    hdShaderOption.filePath = "";
+    hdShaderOption.rayCount = 1;
+    hdShaderOption.launchParamName = "optixLaunchParams";
+    hdShaderOption.rayGenName = "__raygen__program__";
+    hdShaderOption.missProgramNames = {"__miss__radiance"};
+    hdShaderOption.hitProgramCount = 1;
+    hdShaderOption.hitProgramNames = {{"__intersection__radiance", "__anyhit__radiance", "__closesthit__radiance"}};
 
-void buildSamplingShdaer(){
-	OptiXProgramCompileOption hdShaderOption;
-	hdShaderOption.fileName = "__shader__hd__sampling__";
-	hdShaderOption.filePath = g_ptx_dir;
-	hdShaderOption.rayCount = 1;
-	hdShaderOption.launchParamName = "optixLaunchParams";
-	hdShaderOption.rayGenName = "__raygen__program__";
-	hdShaderOption.missProgramNames = { "__miss__radiance" };
-	hdShaderOption.hitProgramCount = 1;
-	hdShaderOption.hitProgramNames = { {"__intersection__radiance", "__anyhit__radiance", "__closesthit__radiance"} };
+    OptiXHDProgram *HDProgram = new OptiXHDProgram(hdShaderOption);
 
-	OptiXHDProgram* HDProgram = new OptiXHDProgram(hdShaderOption);
-
-	optixGlobalParams.programList["SamplingBased"] = HDProgram;
+    optixGlobalParams.programList["SamplingBased"] = HDProgram;
 }
