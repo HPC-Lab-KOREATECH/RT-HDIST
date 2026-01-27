@@ -51,6 +51,13 @@ int main(int argc, char *argv[])
 
     verifyArguments(argc, argv);
 
+    // For fast debug
+    {
+        inputFilePaths[0] = "../" + inputFilePaths[0];
+        if (inputFilePaths.size() > 1)
+            inputFilePaths[1] = "../" + inputFilePaths[1];
+    }
+
     std::random_device rd;
     random_seed = (globalParams["seed"] >= 0) ? globalParams["seed"] : rd();
     std::cout << "Random seed : " << random_seed << std::endl;
@@ -89,16 +96,23 @@ int main(int argc, char *argv[])
     }
 
     std::cout << "For Test" << std::endl;
-    OptiXHDistSamplingMethod testTarget[]{VERTEX, HEMISPHERE, AABB};
+    OptiXHDistSamplingMethod testTarget[]{VERTEX, SPHERE, AABB};
 
     for (const auto &mtd : testTarget)
     {
         std::map<std::string, float> timeParam;
         float3 cand1, cand2;
-        float HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
-                            dA, dB, cand1, cand2, mtd, 0.001f, timeParam);
+        float HD = 0.0f;
 
+        auto RTSamplingTimes = SPIN::TimeCheck([&]()
+                                               {
+        HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
+                            dA, dB, cand1, cand2, mtd, 0.001f, timeParam);
+        // HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
+        //                     dB, dA, cand1, cand2, mtd, 0.001f, timeParam);
+                         });
         std::cout << "HDIST : " << HD << std::endl;
+        std::cout << "Total Time : " << RTSamplingTimes << " ms" << std::endl;
     }
 
     std::cout << "Hello world!" << std::endl;
@@ -137,17 +151,11 @@ float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUPa
         hdparam.queryPoints = dA.vert;
         hdparam.querySize = dA.vSize;
 
-        if (method == HEMISPHERE)
-        {
-            // build vertex normal
-            computeVertexNormals(dA, hdparam.queryNormals);
-        }
-
         hdparam.randomseed = random_seed;
 
         hdparam.samplingRate = samplingRate;
 
-        hdparam.offset = 17;
+        hdparam.offset = -1;
 
         hdparam.Target.vertices = dB.vert;
         hdparam.Target.vSize = dB.vSize;
@@ -175,11 +183,6 @@ float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUPa
         cudaMemcpy(&cand2, hdparam.Result.pos + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost); });
     timeParam["02_HD_Compute"] = ComputeTime;
     std::cout << "Compute Time : " << ComputeTime << " ms" << std::endl;
-
-    if (method == HEMISPHERE)
-    {
-        cudaFree(hdparam.queryNormals);
-    }
 
     return HD;
 }

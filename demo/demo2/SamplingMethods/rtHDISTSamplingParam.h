@@ -2,7 +2,7 @@
 #include "3rdParty/optix7support.h"
 
 enum OptiXHDistSamplingMethod{
-    HEMISPHERE,
+    SPHERE,
     AABB,
     VERTEX
 };
