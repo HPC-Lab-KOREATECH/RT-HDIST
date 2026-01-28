@@ -52,11 +52,11 @@ int main(int argc, char *argv[])
     verifyArguments(argc, argv);
 
     // For fast debug
-    {
-        inputFilePaths[0] = "../" + inputFilePaths[0];
-        if (inputFilePaths.size() > 1)
-            inputFilePaths[1] = "../" + inputFilePaths[1];
-    }
+    // {
+    //     inputFilePaths[0] = "../" + inputFilePaths[0];
+    //     if (inputFilePaths.size() > 1)
+    //         inputFilePaths[1] = "../" + inputFilePaths[1];
+    // }
 
     std::random_device rd;
     random_seed = (globalParams["seed"] >= 0) ? globalParams["seed"] : rd();
@@ -98,23 +98,81 @@ int main(int argc, char *argv[])
     std::cout << "For Test" << std::endl;
     OptiXHDistSamplingMethod testTarget[]{VERTEX, SPHERE, AABB};
 
-    for (const auto &mtd : testTarget)
+    // Boot up
     {
         std::map<std::string, float> timeParam;
         float3 cand1, cand2;
-        float HD = 0.0f;
-
-        auto RTSamplingTimes = SPIN::TimeCheck([&]()
-                                               {
-        HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
-                            dA, dB, cand1, cand2, mtd, 0.001f, timeParam);
-        // HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
-        //                     dB, dA, cand1, cand2, mtd, 0.001f, timeParam);
-                         });
-        std::cout << "HDIST : " << HD << std::endl;
-        std::cout << "Total Time : " << RTSamplingTimes << " ms" << std::endl;
+        float HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
+                            dA, dB, cand1, cand2, VERTEX, 0.001f, timeParam);
     }
 
+    std::vector<std::string> mtdString = {"Sphere", "AABB", "Vertex"};
+
+    float samplingRate = 0.016f;
+    for (int i = 0; i < 5; i++)
+    {
+        for (const auto &mtd : testTarget)
+        {
+            std::map<std::string, float> timeParam;
+            float3 cand1, cand2;
+            float HD = 0.0f;
+
+            auto RTSamplingTimes = SPIN::TimeCheck([&]()
+                                                   {
+                                                       float3 cand1_t, cand2_t;
+                                                       float HD1 = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
+                                                                     dA, dB, cand1, cand2, mtd, samplingRate, timeParam);
+                                                       float HD2 = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
+                                                                            dB, dA, cand1_t, cand2_t, mtd, samplingRate, timeParam);
+
+                                                        if(HD2>HD1){
+                                                            cand1 = cand1_t;
+                                                            cand2 = cand2_t;
+                                                        }
+                                                        HD = fmaxf(HD1,HD2); });
+            std::cout << "HDIST : " << HD << std::endl;
+            std::cout << "Total Time : " << RTSamplingTimes << " ms" << std::endl;
+
+            log.data["00_TYPE"].push_back(mtdString[mtd]);
+            log.data["01_DISTACNE"].push_back(HD);
+            log.data["02_PERFORMANCE"].push_back(RTSamplingTimes);
+            log.data["03_Sampling_Rate"].push_back(samplingRate * 100);
+            log.data["03_Detail_01_Build_Time"].push_back(timeParam["01_GAS_build"]);
+            log.data["03_Detail_02_Compute_Time"].push_back(timeParam["02_HD_Compute"]);
+
+            auto float3ToString = [](float3 data)
+            {
+                std::string res = std::to_string(data.x) + std::string(", ") + std::to_string(data.y) + ", " + std::to_string(data.z);
+                return res;
+            };
+            log.data["04_cand_1"].push_back(float3ToString(cand1));
+            log.data["04_cand_2"].push_back(float3ToString(cand2));
+        }
+        samplingRate += 0.001f;
+    }
+
+    bool fileExists = std::filesystem::exists(loggerPath);
+
+    std::ofstream logOut(loggerPath, std::ios::app);
+
+    if (!fileExists)
+    {
+        logOut << log;
+    }
+    else
+    {
+        int t_size = log.data.begin()->second.size();
+        for (int i = 0; i < t_size; i++)
+        {
+            for (auto &v : log.data)
+            {
+                std::visit([&logOut](auto &&arg)
+                           { logOut << arg << ";"; }, v.second[i]);
+            }
+            logOut << std::endl;
+        }
+    }
+    logOut.close();
     std::cout << "Hello world!" << std::endl;
 
     return -1;
