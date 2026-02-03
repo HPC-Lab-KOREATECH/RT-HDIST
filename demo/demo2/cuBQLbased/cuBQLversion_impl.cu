@@ -107,3 +107,26 @@ float cubqlHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANGLE> &dB
 }
 
 // cubql clustered HD (Same process)
+__global__ void computeRadiusBoxes(const float3 *vertices, cuBQL::box3f *boxes, size_t numPoints, float radius){
+    size_t idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= numPoints)
+        return;
+
+    float3 v = vertices[idx];
+    cuBQL::vec3f lower = cuBQL::vec3f{v.x - radius, v.y - radius, v.z - radius};
+    cuBQL::vec3f upper = cuBQL::vec3f{v.x + radius, v.y + radius, v.z + radius};
+    boxes[idx] = cuBQL::box3f{lower, upper};
+}
+
+__global__ void runRadiusQueries(cuBQL::bvh3f boxBVH, const cuBQL::box3f *leafs, const float3 *queryPoints, float *outDistance, float3 *outPos, size_t numQueriues)
+{
+    size_t idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= numQueriues)
+        return;
+
+    cuBQL::vec3f queryPoint = {queryPoints[idx].x, queryPoints[idx].y, queryPoints[idx].z};
+    cuBQL::vec3f rayDir = cuBQL::vec3f{1.0f, 0.0f, 0.0f};
+
+    cuBQL::ray3f ray(queryPoint, rayDir, 1e-8f, 1e-7f); // very short ray
+    
+}
