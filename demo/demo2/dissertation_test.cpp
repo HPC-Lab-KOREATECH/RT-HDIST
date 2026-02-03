@@ -20,6 +20,7 @@
 
 #include "rtHDISTSamplingParam.h"
 #include "rtMeshGAS.h"
+#include "cuBQLbased.h"
 
 uint random_seed;
 
@@ -37,6 +38,8 @@ void alloc_and_upload(const TriangleMesh &model, HDGPUParam<HDMODE::TRIANGLE> &d
     cudaMemcpy(dModel.tri, model.index.data(), sizeof(uint3) * dModel.tSize, cudaMemcpyHostToDevice);
 }
 
+void runSamplingBasedHDISTTest(const HDGPUParam<HDMODE::TRIANGLE> &dA, const HDGPUParam<HDMODE::TRIANGLE> &dB);
+
 // Sampling-based method, dA = query, dB = target
 float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUParam<HDMODE::TRIANGLE> dB,
                float3 &cand1, float3 &cand2, OptiXHDistSamplingMethod method, float samplingRate /*it is count for HEMISPHERE*/,
@@ -52,18 +55,17 @@ int main(int argc, char *argv[])
     verifyArguments(argc, argv);
 
     // For fast debug
-    // {
-    //     inputFilePaths[0] = "../" + inputFilePaths[0];
-    //     if (inputFilePaths.size() > 1)
-    //         inputFilePaths[1] = "../" + inputFilePaths[1];
-    // }
+    {
+        inputFilePaths[0] = "../" + inputFilePaths[0];
+        if (inputFilePaths.size() > 1)
+            inputFilePaths[1] = "../" + inputFilePaths[1];
+    }
 
     std::random_device rd;
     random_seed = (globalParams["seed"] >= 0) ? globalParams["seed"] : rd();
     std::cout << "Random seed : " << random_seed << std::endl;
     random_machine = std::mt19937(random_seed);
 
-    SPIN::Logger log;
 
     Object_t hA = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[0]);
 
@@ -95,7 +97,97 @@ int main(int argc, char *argv[])
         alloc_and_upload(*hB.model->meshes[0], dB);
     }
 
-    std::cout << "For Test" << std::endl;
+    std::map<std::string, float> timeParam;
+    float3 cand1, cand2;
+    float HD = 0.0f;
+    auto cubqlHDTime = SPIN::TimeCheck([&]()
+                                                   {
+                                                       float3 cand1_t, cand2_t;
+                                                       float HD1 = cubqlHD(dA, dB, cand1, cand2, timeParam);
+                                                       float HD2 = cubqlHD(dB, dA, cand1_t, cand2_t, timeParam);
+
+                                                        if(HD2>HD1){
+                                                            cand1 = cand1_t;
+                                                            cand2 = cand2_t;
+                                                        }
+                                                        HD = fmaxf(HD1,HD2); });
+            std::cout << "HDIST : " << HD << std::endl;
+            std::cout << "Total Time : " << cubqlHDTime << " ms" << std::endl;
+    runSamplingBasedHDISTTest(dA, dB);
+
+    return -1;
+}
+
+float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUParam<HDMODE::TRIANGLE> dB,
+               float3 &cand1, float3 &cand2, OptiXHDistSamplingMethod method, float samplingRate /*it is count for HEMISPHERE*/,
+               std::map<std::string, float> &timeParam)
+{
+    float HD;
+
+    MeshGAS targetGAS;
+    auto GASBuildTime = SPIN::TimeCheck([&]
+                                        {
+        targetGAS.gpuMesh = &dB;
+        targetGAS.build(); });
+    timeParam["01_GAS_build"] = GASBuildTime;
+
+    std::cout << "Build Time : " << GASBuildTime << " ms" << std::endl;
+
+    OptixAabb targetAABB = computeAABB_device(dB.vert, dB.vSize);
+
+    CUDABuffer launchParamBuffer;
+    launchParamBuffer.alloc(sizeof(OptiXHDParamSamplingBased));
+
+    CUDABuffer distanceBuffer;
+    CUDABuffer posBuffer;
+    distanceBuffer.alloc(sizeof(float) * dA.vSize);
+    posBuffer.alloc(sizeof(float3) * dA.vSize);
+
+    OptiXHDParamSamplingBased hdparam;
+    { // param build
+        hdparam.samplingMethod = method;
+        hdparam.queryPoints = dA.vert;
+        hdparam.querySize = dA.vSize;
+
+        hdparam.randomseed = random_seed;
+
+        hdparam.samplingRate = samplingRate;
+
+        hdparam.offset = -1;
+
+        hdparam.Target.vertices = dB.vert;
+        hdparam.Target.vSize = dB.vSize;
+        hdparam.Target.indices = dB.tri;
+        hdparam.Target.tSize = dB.tSize;
+        hdparam.Target.aabb = targetAABB;
+
+        hdparam.traversable = targetGAS.gas;
+
+        hdparam.Result.distance = (float *)distanceBuffer.d_pointer();
+        hdparam.Result.pos = (float3 *)posBuffer.d_pointer();
+    }
+
+    launchParamBuffer.upload(&hdparam, 1);
+
+    // Compute HD
+    auto ComputeTime = SPIN::TimeCheck([&]
+                                       {
+        program.Launches(launchParamBuffer, make_uint3(dA.vSize, 1, 1));
+        size_t maxIDX;
+        float tmp = getMaximumF(hdparam.Result.distance, dA.vSize, maxIDX);
+
+        HD = tmp;
+        cudaMemcpy(&cand1, dA.vert + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost);
+        cudaMemcpy(&cand2, hdparam.Result.pos + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost); });
+    timeParam["02_HD_Compute"] = ComputeTime;
+    std::cout << "Compute Time : " << ComputeTime << " ms" << std::endl;
+
+    return HD;
+}
+
+void runSamplingBasedHDISTTest(const HDGPUParam<HDMODE::TRIANGLE> &dA, const HDGPUParam<HDMODE::TRIANGLE> &dB){
+    SPIN::Logger log;
+std::cout << "For Test" << std::endl;
     OptiXHDistSamplingMethod testTarget[]{VERTEX, SPHERE, AABB};
 
     // Boot up
@@ -173,76 +265,6 @@ int main(int argc, char *argv[])
         }
     }
     logOut.close();
-    std::cout << "Hello world!" << std::endl;
-
-    return -1;
-}
-
-float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUParam<HDMODE::TRIANGLE> dB,
-               float3 &cand1, float3 &cand2, OptiXHDistSamplingMethod method, float samplingRate /*it is count for HEMISPHERE*/,
-               std::map<std::string, float> &timeParam)
-{
-    float HD;
-
-    MeshGAS targetGAS;
-    auto GASBuildTime = SPIN::TimeCheck([&]
-                                        {
-        targetGAS.gpuMesh = &dB;
-        targetGAS.build(); });
-    timeParam["01_GAS_build"] = GASBuildTime;
-
-    std::cout << "Build Time : " << GASBuildTime << " ms" << std::endl;
-
-    OptixAabb targetAABB = computeAABB_device(dB.vert, dB.vSize);
-
-    CUDABuffer launchParamBuffer;
-    launchParamBuffer.alloc(sizeof(OptiXHDParamSamplingBased));
-
-    CUDABuffer distanceBuffer;
-    CUDABuffer posBuffer;
-    distanceBuffer.alloc(sizeof(float) * dA.vSize);
-    posBuffer.alloc(sizeof(float3) * dA.vSize);
-
-    OptiXHDParamSamplingBased hdparam;
-    { // param build
-        hdparam.samplingMethod = method;
-        hdparam.queryPoints = dA.vert;
-        hdparam.querySize = dA.vSize;
-
-        hdparam.randomseed = random_seed;
-
-        hdparam.samplingRate = samplingRate;
-
-        hdparam.offset = -1;
-
-        hdparam.Target.vertices = dB.vert;
-        hdparam.Target.vSize = dB.vSize;
-        hdparam.Target.indices = dB.tri;
-        hdparam.Target.tSize = dB.tSize;
-        hdparam.Target.aabb = targetAABB;
-
-        hdparam.traversable = targetGAS.gas;
-
-        hdparam.Result.distance = (float *)distanceBuffer.d_pointer();
-        hdparam.Result.pos = (float3 *)posBuffer.d_pointer();
-    }
-
-    launchParamBuffer.upload(&hdparam, 1);
-
-    // Compute HD
-    auto ComputeTime = SPIN::TimeCheck([&]
-                                       {
-        program.Launches(launchParamBuffer, make_uint3(dA.vSize, 1, 1));
-        size_t maxIDX;
-        float tmp = getMaximumF(hdparam.Result.distance, dA.vSize, maxIDX);
-
-        HD = tmp;
-        cudaMemcpy(&cand1, dA.vert + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost);
-        cudaMemcpy(&cand2, hdparam.Result.pos + maxIDX, sizeof(float3)*1, cudaMemcpyDeviceToHost); });
-    timeParam["02_HD_Compute"] = ComputeTime;
-    std::cout << "Compute Time : " << ComputeTime << " ms" << std::endl;
-
-    return HD;
 }
 
 void buildQClusterShader()

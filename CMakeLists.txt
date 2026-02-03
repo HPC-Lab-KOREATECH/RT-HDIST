@@ -22,6 +22,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(optix)
 set(OptiX_INCLUDE_DIR "${optix_SOURCE_DIR}/include")
 
+FetchContent_Declare(
+    cuBQL
+    GIT_REPOSITORY https://github.com/NVIDIA/cuBQL.git
+    GIT_TAG        main    
+)
+FetchContent_MakeAvailable(cuBQL)
+
 add_library(optix_common INTERFACE)
 target_include_directories(optix_common INTERFACE
     ${CUDAToolkit_INCLUDE_DIRS}
