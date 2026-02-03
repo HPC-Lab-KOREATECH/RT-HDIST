@@ -96,6 +96,13 @@ int main(int argc, char *argv[])
         Object_t hB = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[1]);
         alloc_and_upload(*hB.model->meshes[0], dB);
     }
+  
+    { // Boot up
+        std::map<std::string, float> timeParam;
+        float3 cand1, cand2;
+        float HD = directHD(static_cast<OptiXHDProgram &>(*optixGlobalParams.programList["SamplingBased"]),
+                            dA, dB, cand1, cand2, VERTEX, 0.001f, timeParam);
+    }
 
     std::map<std::string, float> timeParam;
     float3 cand1, cand2;
