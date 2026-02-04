@@ -55,17 +55,16 @@ int main(int argc, char *argv[])
     verifyArguments(argc, argv);
 
     // For fast debug
-    {
-        inputFilePaths[0] = "../" + inputFilePaths[0];
-        if (inputFilePaths.size() > 1)
-            inputFilePaths[1] = "../" + inputFilePaths[1];
-    }
+    // {
+    //     inputFilePaths[0] = "../" + inputFilePaths[0];
+    //     if (inputFilePaths.size() > 1)
+    //         inputFilePaths[1] = "../" + inputFilePaths[1];
+    // }
 
     std::random_device rd;
     random_seed = (globalParams["seed"] >= 0) ? globalParams["seed"] : rd();
     std::cout << "Random seed : " << random_seed << std::endl;
     random_machine = std::mt19937(random_seed);
-
 
     Object_t hA = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[0]);
 
@@ -96,7 +95,7 @@ int main(int argc, char *argv[])
         Object_t hB = IO::read<Object_t, SPIN::OBJ>(inputFilePaths[1]);
         alloc_and_upload(*hB.model->meshes[0], dB);
     }
-  
+
     { // Boot up
         std::map<std::string, float> timeParam;
         float3 cand1, cand2;
@@ -108,7 +107,7 @@ int main(int argc, char *argv[])
     float3 cand1, cand2;
     float HD = 0.0f;
     auto cubqlHDTime = SPIN::TimeCheck([&]()
-                                                   {
+                                       {
                                                        float3 cand1_t, cand2_t;
                                                        float HD1 = cubqlHD(dA, dB, cand1, cand2, timeParam);
                                                        float HD2 = cubqlHD(dB, dA, cand1_t, cand2_t, timeParam);
@@ -118,9 +117,48 @@ int main(int argc, char *argv[])
                                                             cand2 = cand2_t;
                                                         }
                                                         HD = fmaxf(HD1,HD2); });
-            std::cout << "HDIST : " << HD << std::endl;
-            std::cout << "Total Time : " << cubqlHDTime << " ms" << std::endl;
-    runSamplingBasedHDISTTest(dA, dB);
+    std::cout << "HDIST : " << HD << std::endl;
+    std::cout << "Total Time : " << cubqlHDTime << " ms" << std::endl;
+    // runSamplingBasedHDISTTest(dA, dB);
+
+    SPIN::Logger log;
+
+    log.data["00_TYPE"].push_back("cuBQL_NN_HD");
+    log.data["01_DISTACNE"].push_back(HD);
+    log.data["02_PERFORMANCE"].push_back(cubqlHDTime);
+    log.data["03_Sampling_Rate"].push_back("-");
+    log.data["03_Detail_01_Build_Time"].push_back(timeParam["01_GAS_build"]);
+    log.data["03_Detail_02_Compute_Time"].push_back(timeParam["02_HD_Compute"]);
+
+    auto float3ToString = [](float3 data)
+    {
+        std::string res = std::to_string(data.x) + std::string(", ") + std::to_string(data.y) + ", " + std::to_string(data.z);
+        return res;
+    };
+    log.data["04_cand_1"].push_back(float3ToString(cand1));
+    log.data["04_cand_2"].push_back(float3ToString(cand2));
+
+    bool fileExists = std::filesystem::exists(loggerPath);
+
+    std::ofstream logOut(loggerPath, std::ios::app);
+    if (!fileExists)
+    {
+        logOut << log;
+    }
+    else
+    {
+        int t_size = log.data.begin()->second.size();
+        for (int i = 0; i < t_size; i++)
+        {
+            for (auto &v : log.data)
+            {
+                std::visit([&logOut](auto &&arg)
+                           { logOut << arg << ";"; }, v.second[i]);
+            }
+            logOut << std::endl;
+        }
+    }
+    logOut.close();
 
     return -1;
 }
@@ -192,9 +230,10 @@ float directHD(OptiXHDProgram &program, HDGPUParam<HDMODE::TRIANGLE> dA, HDGPUPa
     return HD;
 }
 
-void runSamplingBasedHDISTTest(const HDGPUParam<HDMODE::TRIANGLE> &dA, const HDGPUParam<HDMODE::TRIANGLE> &dB){
+void runSamplingBasedHDISTTest(const HDGPUParam<HDMODE::TRIANGLE> &dA, const HDGPUParam<HDMODE::TRIANGLE> &dB)
+{
     SPIN::Logger log;
-std::cout << "For Test" << std::endl;
+    std::cout << "For Test" << std::endl;
     OptiXHDistSamplingMethod testTarget[]{VERTEX, SPHERE, AABB};
 
     // Boot up

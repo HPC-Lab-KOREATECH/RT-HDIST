@@ -9,6 +9,8 @@
 #include "cuBQL/queries/triangleData/lineOfSight.h"
 
 #include "ReduceUtils.h"
+#include "MortonUtils.h"
+#include "AABBSupport.h"
 
 using cuBQL::divRoundUp;
 
@@ -92,8 +94,7 @@ float cubqlHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANGLE> &dB
                                            HD = tmp;
 
                                            cudaMemcpy(&cand1, dA.vert + maxIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost);
-                                           cudaMemcpy(&cand2, (float3 *)dTargets.d_pointer() + maxIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost);
-                                       });
+                                           cudaMemcpy(&cand2, (float3 *)dTargets.d_pointer() + maxIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost); });
     timeParam["02_HD_Compute"] = ComputeTime;
     std::cout << "Compute Time : " << ComputeTime << " ms" << std::endl;
 
@@ -107,7 +108,8 @@ float cubqlHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANGLE> &dB
 }
 
 // cubql clustered HD (Same process)
-__global__ void computeRadiusBoxes(const float3 *vertices, cuBQL::box3f *boxes, size_t numPoints, float radius){
+__global__ void computeRadiusBoxes(const float3 *vertices, cuBQL::box3f *boxes, size_t numPoints, float radius)
+{
     size_t idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= numPoints)
         return;
@@ -118,7 +120,27 @@ __global__ void computeRadiusBoxes(const float3 *vertices, cuBQL::box3f *boxes, 
     boxes[idx] = cuBQL::box3f{lower, upper};
 }
 
-__global__ void runRadiusQueries(cuBQL::bvh3f boxBVH, const cuBQL::box3f *leafs, const float3 *queryPoints, float *outDistance, float3 *outPos, size_t numQueriues)
+enum HDistOptimizeState
+{
+    FILTERING,
+    COMPUTING
+};
+
+struct Payload_t
+{
+    float3 originVtx;
+    float minDist;
+    float rawMinDist;
+    // float3 scaledQuery;
+    uint targetIdx;
+
+    bool terminated;
+};
+
+__global__ void runRadiusQueries(cuBQL::bvh3f boxBVH, const cuBQL::box3f *leafs, const float3 *queryPoints,
+                                 const float3 *target, const size_t *clusterInfo, OptixAabb targetBound,
+                                 float *outDistance, uint *targetIDX, size_t numQueriues,
+                                 float3 targetVoxelSize, float targetEPS, HDistOptimizeState state)
 {
     size_t idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= numQueriues)
@@ -128,5 +150,136 @@ __global__ void runRadiusQueries(cuBQL::bvh3f boxBVH, const cuBQL::box3f *leafs,
     cuBQL::vec3f rayDir = cuBQL::vec3f{1.0f, 0.0f, 0.0f};
 
     cuBQL::ray3f ray(queryPoint, rayDir, 1e-8f, 1e-7f); // very short ray
-    
+
+    Payload_t prd;
+    prd.minDist = 1e8f;
+    prd.rawMinDist = 1e8f;
+    prd.targetIdx = -1;
+    prd.terminated = false;
+
+    if (state == COMPUTING)
+    {
+        float3 boundMin = {targetBound.minX, targetBound.minY, targetBound.minZ};
+        float3 originVtx = queryPoints[idx] * targetVoxelSize + boundMin;
+        prd.originVtx = originVtx;
+    }
+
+    auto perBox = [leafs, ray, state, targetEPS, &prd, target, clusterInfo](uint32_t leafID)
+    {
+        cuBQL::box3f box = leafs[leafID];
+        if (cuBQL::rayIntersectsBox(ray, box))
+        {
+            float hitDist = length(box.center() - ray.origin);
+
+            if (hitDist < targetEPS)
+            {
+                if (state == COMPUTING)
+                {
+                    size_t last = clusterInfo[leafID + 1];
+
+                    for (int i = clusterInfo[leafID]; i < last; i++)
+                    {
+                        float rawdist = length(prd.originVtx - target[i]);
+
+                        if (prd.rawMinDist >= rawdist)
+                        {
+                            prd.rawMinDist = rawdist;
+                            prd.targetIdx = i;
+                        }
+                    }
+                    return CUBQL_CONTINUE_TRAVERSAL;
+                }
+                else
+                {
+                    prd.rawMinDist = 1.0;
+                    prd.terminated = true;
+                    return CUBQL_TERMINATE_TRAVERSAL;
+                }
+            }
+            return CUBQL_CONTINUE_TRAVERSAL;
+        }
+    };
+
+    cuBQL::fixedRayQuery::forEachPrim(perBox, boxBVH, ray);
+
+    if (prd.rawMinDist < 1e8f)
+    {
+        targetIDX[idx] = prd.targetIdx;
+        outDistance[idx] = prd.rawMinDist;
+    }
+    else
+    {
+        targetIDX[idx] = -1;
+        outDistance[idx] = -1;
+    }
+}
+
+
+float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANGLE> &dB, float3 &cand1, float3 &cand2,
+              float _eps, BYTE bitCount,
+              std::map<std::string, float> &timeParam)
+{
+    OptixAabb targetAABB = computeAABB_device(dB.vert, dB.vSize);
+    OptixAabb sourceAABB = computeAABB_device(dA.vert, dA.vSize);
+
+    OptixAabb totalAABB = merge(sourceAABB, targetAABB);
+
+    const float3 voxelS = (aabb2max(targetAABB) - aabb2min(targetAABB)) / (1 << bitCount);
+    float delimiter = fmaxf(fmaxf(voxelS.x, voxelS.y), voxelS.z);
+    const float3 voxelSize = make_float3(delimiter, delimiter, delimiter);
+
+    size_t numTrianglesB = dB.tSize;
+    float HD = 0.0f;
+
+    CUDABuffer dBoxesB;
+    dBoxesB.alloc(sizeof(cuBQL::box3f) * numTrianglesB);
+    CUDABuffer dTrianglesB;
+    dTrianglesB.alloc(sizeof(cuBQL::Triangle) * numTrianglesB);
+
+    size_t blockSize = 256;
+    size_t numBlocks = divRoundUp(numTrianglesB, blockSize);
+    cuBQL::bvh3f bvhB;
+
+    auto GASBuildTime = SPIN::TimeCheck([&]
+                                        {
+        computeTrianglesAndBoxes<<<numBlocks, blockSize>>>(dB.vert, dB.tri,
+             (cuBQL::Triangle*)dTrianglesB.d_pointer(),
+             (cuBQL::box3f*)dBoxesB.d_pointer(), numTrianglesB);
+        cudaDeviceSynchronize();
+        cuBQL::gpuBuilder(bvhB, (cuBQL::box3f*)dBoxesB.d_pointer(), numTrianglesB, cuBQL::BuildConfig()); });
+    timeParam["01_GAS_build"] = GASBuildTime;
+    std::cout << "Build Time : " << GASBuildTime << " ms" << std::endl;
+
+    size_t numQueries = dA.vSize;
+    CUDABuffer dTargets;
+    dTargets.alloc(sizeof(float3) * numQueries);
+    CUDABuffer dDistances;
+    dDistances.alloc(sizeof(float) * numQueries);
+    numBlocks = divRoundUp(numQueries, blockSize);
+
+    auto ComputeTime = SPIN::TimeCheck([&]
+                                       {
+                                           runQueries<<<numBlocks, blockSize>>>(bvhB,
+                                                                                (cuBQL::Triangle *)dTrianglesB.d_pointer(),
+                                                                                dA.vert,
+                                                                                (float *)dDistances.d_pointer(),
+                                                                                (float3 *)dTargets.d_pointer(),
+                                                                                numQueries);
+                                           cudaDeviceSynchronize();
+                                           size_t maxIDX;
+                                           float tmp = getMaximumF((float *)dDistances.d_pointer(), numQueries, maxIDX);
+                                           HD = tmp;
+
+                                           cudaMemcpy(&cand1, dA.vert + maxIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost);
+                                           cudaMemcpy(&cand2, (float3 *)dTargets.d_pointer() + maxIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost); });
+    timeParam["02_HD_Compute"] = ComputeTime;
+    std::cout << "Compute Time : " << ComputeTime << " ms" << std::endl;
+
+    cuBQL::cuda::free(bvhB);
+    dBoxesB.free();
+    dTrianglesB.free();
+    dDistances.free();
+    dTargets.free();
+
+    return HD;
 }
