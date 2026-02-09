@@ -280,7 +280,7 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
     uint3 number_of_voxels_maximum_inspace = make_uint3(aabb2size(totalAABB) / voxelSize);
 
     CUDABuffer dBoxesB;
-    dBoxesB.alloc(sizeof(cuBQL::box3f) * dB.vSize);
+    dBoxesB.alloc(sizeof(cuBQL::box3f) * target.number_of_cluster);
 
     cuBQL::bvh3f bvhB;
     while (remains > 0)
@@ -291,17 +291,17 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
         size_t reduced_size;
 
         size_t blockSize = 256;
-        size_t numBlocks = divRoundUp(dB.vSize, blockSize);
+        size_t numBlocks = divRoundUp(target.number_of_cluster, blockSize);
         auto TimeFilteringStep = SPIN::TimeCheck([&]()
                                                  {
                                                      auto GASBuildTime = SPIN::TimeCheck([&]
                                                                                          {
-                                                        computeRadiusBoxes<<<numBlocks, blockSize>>>(dB.vert,
+                                                        computeRadiusBoxes<<<numBlocks, blockSize>>>(gpuRepresentative,
                                                          (cuBQL::box3f*)dBoxesB.d_pointer(),
-                                                         dB.vSize,
+                                                         target.number_of_cluster,
                                                          eps);
                                                          cudaDeviceSynchronize();
-                                                    cuBQL::gpuBuilder(bvhB, (cuBQL::box3f*)dBoxesB.d_pointer(), dB.vSize, cuBQL::BuildConfig()); });
+                                                    cuBQL::gpuBuilder(bvhB, (cuBQL::box3f*)dBoxesB.d_pointer(), target.number_of_cluster, cuBQL::BuildConfig()); });
                                                      timeParam["01_GAS_build"] += GASBuildTime;
                                                      //std::cout << "Build Time : " << GASBuildTime << " ms" << std::endl;
 
@@ -354,12 +354,12 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
 
                     auto GASBuildTime = SPIN::TimeCheck([&]
                                                                                          {
-                                                        computeRadiusBoxes<<<numBlocks, blockSize>>>(dB.vert,
+                                                        computeRadiusBoxes<<<numBlocks, blockSize>>>(gpuRepresentative,
                                                          (cuBQL::box3f*)dBoxesB.d_pointer(),
-                                                         dB.vSize,
+                                                         target.number_of_cluster,
                                                          eps);
                                                          cudaDeviceSynchronize();
-                                                    cuBQL::gpuBuilder(bvhB, (cuBQL::box3f*)dBoxesB.d_pointer(), dB.vSize, cuBQL::BuildConfig()); });
+                                                    cuBQL::gpuBuilder(bvhB, (cuBQL::box3f*)dBoxesB.d_pointer(), target.number_of_cluster, cuBQL::BuildConfig()); });
                                                      timeParam["01_GAS_build"] += GASBuildTime;
                                                     //std::cout << "Build Time : " << GASBuildTime << " ms" << std::endl;
 
@@ -374,26 +374,28 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
                                                                                 dB.vert,
                                                                                 gpuClusterInfo,
                                                                                 targetAABB,                                                                                
-                                                                                (float *)dDistances.d_pointer(),
-                                                                                (uint *)dIdx.d_pointer(),
+                                                                                distanceBuffer,
+                                                                                idxBuffer,
                                                                                 pprevious_remains,
                                                                                 voxelSize,
                                                                                 eps,
                                                                                 COMPUTING
                                                                         );
-                                           cudaDeviceSynchronize(); });
+                                           CUDA_SYNC_CHECK(); });
 
-                    //std::cout << "Remains : " << remains << ", 2step-previous :" << pprevious_remains << std::endl;
-                    tmp = getMaximumF((float *)dDistances.d_pointer(), pprevious_remains, maxIDX);
+                    std::cout << "Remains : " << remains << ", 2step-previous :" << pprevious_remains << std::endl;
+                    tmp = getMaximumF(distanceBuffer, pprevious_remains, maxIDX);
+                    CUDA_SYNC_CHECK();
+                    std::cout << eps << " " << tmp << std::endl;
                     uint targetIDX;
-                    cudaMemcpy(&targetIDX, (uint *)dIdx.d_pointer() + maxIDX, sizeof(uint), cudaMemcpyDeviceToHost);
-                    //std::cout << eps << " " << tmp << std::endl;
+                    cudaMemcpy(&targetIDX, idxBuffer + maxIDX, sizeof(uint), cudaMemcpyDeviceToHost);
+                    std::cout << eps << " " << tmp << std::endl;
 
                     HD = fmaxf(tmp, HD);
                     cudaMemcpy(&cand1, pprevious + maxIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost);
                     cand1 = cand1 * voxelSize + aabb2min(targetAABB);
                     cudaMemcpy(&cand2, target.points + targetIDX, sizeof(float3) * 1, cudaMemcpyDeviceToHost);
-                    //std::cout << length(cand1 - cand2) << std::endl;
+                    std::cout << length(cand1 - cand2) << std::endl;
 
                     cudaFree(distanceBuffer);
                     cudaFree(idxBuffer);
