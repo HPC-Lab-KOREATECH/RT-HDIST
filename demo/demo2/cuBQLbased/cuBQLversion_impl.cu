@@ -316,7 +316,7 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
                                            runRadiusQueries<<<numBlocks, blockSize>>>(bvhB,
                                                                                 (cuBQL::box3f*)dBoxesB.d_pointer(),
                                                                                 queries,
-                                                                                dB.vert,
+                                                                                target.points,
                                                                                 gpuClusterInfo,
                                                                                 targetAABB,                                                                                
                                                                                 (float *)dDistances.d_pointer(),
@@ -371,7 +371,7 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
                                            runRadiusQueries<<<numBlocks, blockSize>>>(bvhB,
                                                                                 (cuBQL::box3f*)dBoxesB.d_pointer(),
                                                                                 pprevious,
-                                                                                dB.vert,
+                                                                                target.points,
                                                                                 gpuClusterInfo,
                                                                                 targetAABB,                                                                                
                                                                                 distanceBuffer,
@@ -382,6 +382,7 @@ float cubqlClusterHD(HDGPUParam<HDMODE::TRIANGLE> &dA, HDGPUParam<HDMODE::TRIANG
                                                                                 COMPUTING
                                                                         );
                                            CUDA_SYNC_CHECK(); });
+                                                     timeParam["02_HD_Compute"] += ComputeTime;
 
                     std::cout << "Remains : " << remains << ", 2step-previous :" << pprevious_remains << std::endl;
                     tmp = getMaximumF(distanceBuffer, pprevious_remains, maxIDX);

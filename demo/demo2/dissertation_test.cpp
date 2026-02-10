@@ -55,11 +55,11 @@ int main(int argc, char *argv[])
     verifyArguments(argc, argv);
 
     // For fast debug
-    {
-        inputFilePaths[0] = "../" + inputFilePaths[0];
-        if (inputFilePaths.size() > 1)
-            inputFilePaths[1] = "../" + inputFilePaths[1];
-    }
+    // {
+    //     inputFilePaths[0] = "../" + inputFilePaths[0];
+    //     if (inputFilePaths.size() > 1)
+    //         inputFilePaths[1] = "../" + inputFilePaths[1];
+    // }
 
     std::random_device rd;
     random_seed = (globalParams["seed"] >= 0) ? globalParams["seed"] : rd();
@@ -109,10 +109,10 @@ int main(int argc, char *argv[])
     auto cubqlHDTime = SPIN::TimeCheck([&]()
                                        {
                                                        float3 cand1_t, cand2_t;
-                                                       //float HD1 = cubqlHD(dA, dB, cand1, cand2, timeParam);
-                                                       //float HD2 = cubqlHD(dB, dA, cand1_t, cand2_t, timeParam);
-                                                       float HD1 = cubqlClusterHD(dA, dB, cand1, cand2, 0,globalParams["grid_1"], timeParam);
-                                                       float HD2 = cubqlClusterHD(dB, dA, cand1_t, cand2_t,0,globalParams["grid_1"], timeParam);
+                                                       float HD1 = cubqlHD(dA, dB, cand1, cand2, timeParam);
+                                                       float HD2 = cubqlHD(dB, dA, cand1_t, cand2_t, timeParam);
+                                                       //float HD1 = cubqlClusterHD(dA, dB, cand1, cand2, 0,globalParams["grid_1"], timeParam);
+                                                       //float HD2 = cubqlClusterHD(dB, dA, cand1_t, cand2_t,0,globalParams["grid_1"], timeParam);
 
                                                         if(HD2>HD1){
                                                             cand1 = cand1_t;
@@ -130,7 +130,9 @@ int main(int argc, char *argv[])
     log.data["02_PERFORMANCE"].push_back(cubqlHDTime);
     log.data["03_Sampling_Rate"].push_back("-");
     log.data["03_Detail_01_Build_Time"].push_back(timeParam["01_GAS_build"]);
-    log.data["03_Detail_02_Compute_Time"].push_back(timeParam["02_HD_Compute"]);
+    log.data["03_Detail_02_Intersection_Time"].push_back(timeParam["02_HD_Compute"]);
+    log.data["03_Detail_03_Filter_Time"].push_back(timeParam["FilteringTime"]);
+    log.data["03_Detail_04_Computing_Time"].push_back(timeParam["ComputingTime"]);
 
     auto float3ToString = [](float3 data)
     {
